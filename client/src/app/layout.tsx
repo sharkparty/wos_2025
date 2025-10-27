@@ -1,8 +1,9 @@
 import "./globals.css";
 
-import { Geist } from "next/font/google";
+import { Roboto_Flex } from "next/font/google";
 
-const geist = Geist({
+const roboto = Roboto_Flex({
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -16,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={geist.className}>
+    <html lang="en" className={roboto.className}>
       <body>{children}</body>
     </html>
   );
