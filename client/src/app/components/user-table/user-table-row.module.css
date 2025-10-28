@@ -1,0 +1,8 @@
+@import "@radix-ui/colors/gray.css";
+
+.userTableRow {
+    td {
+        padding: 1rem;
+        font-weight: 400;
+    }
+}

@@ -1,0 +1,61 @@
+@import "@radix-ui/colors/gray.css";
+
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: .5rem;
+    overflow: hidden;
+    font-size: 0.875rem;
+}
+
+.userTableContainer {
+
+}
+
+.userTable {
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
+    border: solid thin var(--gray-6);
+
+}
+
+.userTableHead {
+    background-color: var(--gray-2);
+
+    th:first-child {
+        border-top-left-radius: .5rem;
+    }
+    th:last-child {
+        border-top-right-radius: .5rem;
+    }
+
+    th {
+        padding: 1rem;
+        line-height: 1.25rem;
+        font-weight: 600;
+        /* TODO: font weights are mismatched */
+        color: var(--gray-12);
+        border-bottom: solid thin var(--gray-6);
+        text-align: left;
+    }
+}
+
+.userTableFooter {
+    td {
+        padding: 1rem;
+    }
+    nav {
+        text-align: right;
+    }
+}
+
+.paginationControls {
+    display: flex;
+    width: 100%;
+    gap: .5rem;
+    justify-content: flex-end;
+}
