@@ -5,7 +5,7 @@ import React, {
   useState,
   useCallback,
 } from "react";
-import useSWR, { mutate as globalMutate } from "swr";
+import useSWR from "swr";
 import { fetcher } from "./fetcher.util";
 
 export type UUID = string;
@@ -45,9 +45,9 @@ export interface RolesResponse {
   pages: number;
 }
 
-interface UsersContextValue {
+export interface UsersContextValue {
   users: User[];
-  roles: Role[] | undefined;
+  roles: Role[];
   isLoading: boolean;
   page: number;
   totalPages: number;
@@ -56,9 +56,17 @@ interface UsersContextValue {
   setPage: (p: number) => void;
   setSearch: (s: string) => void;
   setSort: (s: string) => void;
+
+  /** USERS CRUD **/
   createUser: (payload: Omit<User, "id" | "role">) => Promise<User>;
   updateUser: (id: UUID, changes: Partial<User>) => Promise<User>;
   deleteUser: (id: UUID) => Promise<void>;
+
+  /** ROLES CRUD **/
+  createRole: (payload: Omit<Role, "id">) => Promise<Role>;
+  updateRole: (id: UUID, changes: Partial<Role>) => Promise<Role>;
+  deleteRole: (id: UUID) => Promise<void>;
+
   refresh: () => Promise<void>;
 }
 
@@ -69,8 +77,8 @@ const ROLES_KEY = `/roles/`;
 
 function reconcileRoles(users: User[], roles?: Role[]): User[] {
   if (!roles) return users.map((u) => ({ ...u, role: null }));
-  const rmap = new Map(roles.map((r) => [r.id, r]));
-  return users.map((u) => ({ ...u, role: rmap.get(u.roleId) ?? null }));
+  const map = new Map(roles.map((r) => [r.id, r]));
+  return users.map((u) => ({ ...u, role: map.get(u.roleId) ?? null }));
 }
 
 export const UsersProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -78,10 +86,10 @@ export const UsersProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState(""); // server determines actual sorting rules
+  const [sort, setSort] = useState("");
 
-  // Fetch roles (cached for 30min)
-  const { data: rolesResp } = useSWR<RolesResponse>(
+  // --- ROLES ---
+  const { data: rolesResp, mutate: mutateRoles } = useSWR<RolesResponse>(
     ROLES_KEY,
     () => fetcher<RolesResponse>(ROLES_KEY),
     {
@@ -91,7 +99,7 @@ export const UsersProvider: React.FC<{ children: React.ReactNode }> = ({
   );
   const roles = rolesResp?.data ?? [];
 
-  // Build query for users
+  // --- USERS ---
   const usersKey = useMemo(() => {
     const params = new URLSearchParams();
     params.set("page", String(page));
@@ -100,7 +108,6 @@ export const UsersProvider: React.FC<{ children: React.ReactNode }> = ({
     return `/users?${params.toString()}`;
   }, [page, search, sort]);
 
-  // Fetch users
   const {
     data: usersResp,
     mutate: mutateUsers,
@@ -119,14 +126,14 @@ export const UsersProvider: React.FC<{ children: React.ReactNode }> = ({
     [usersResp?.data, roles],
   );
 
-  const isLoading = !usersResp && !rolesResp;
+  const isLoading = !usersResp || !rolesResp;
   const totalPages = usersResp?.pages ?? 1;
 
   const refresh = useCallback(async () => {
-    await Promise.all([globalMutate(ROLES_KEY), mutateUsers()]);
-  }, [mutateUsers]);
+    await Promise.all([mutateUsers(), mutateRoles()]);
+  }, [mutateUsers, mutateRoles]);
 
-  // CRUD operations
+  /** --- USERS CRUD --- **/
   const createUser = useCallback(
     async (payload: Omit<User, "id" | "role">) => {
       const res = await fetcher<{ data: User }>(`/users`, {
@@ -159,6 +166,39 @@ export const UsersProvider: React.FC<{ children: React.ReactNode }> = ({
     [mutateUsers],
   );
 
+  /** --- ROLES CRUD --- **/
+  const createRole = useCallback(
+    async (payload: Omit<Role, "id">) => {
+      const res = await fetcher<{ data: Role }>(`/roles`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+      await mutateRoles();
+      return res.data;
+    },
+    [mutateRoles],
+  );
+
+  const updateRole = useCallback(
+    async (id: UUID, changes: Partial<Role>) => {
+      const res = await fetcher<{ data: Role }>(`/roles/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(changes),
+      });
+      await mutateRoles();
+      return res.data;
+    },
+    [mutateRoles],
+  );
+
+  const deleteRole = useCallback(
+    async (id: UUID) => {
+      await fetcher(`/roles/${id}`, { method: "DELETE" });
+      await mutateRoles();
+    },
+    [mutateRoles],
+  );
+
   const value: UsersContextValue = {
     users,
     roles,
@@ -173,6 +213,9 @@ export const UsersProvider: React.FC<{ children: React.ReactNode }> = ({
     createUser,
     updateUser,
     deleteUser,
+    createRole,
+    updateRole,
+    deleteRole,
     refresh,
   };
 
