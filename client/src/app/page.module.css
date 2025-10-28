@@ -1,13 +1,15 @@
+@import "@radix-ui/colors/gray-alpha.css";
+
 .pageContainer {
+  display: flex;
   height: 100vh;
   width: 100vw;
-  align-content: center;
-  justify-items: center;
+  justify-content: center;
 }
 
 .pageContent {
-  display: flex;
-  justify-content: center;
+  padding-top: 3rem;
+  width: 80vw;
 }
 
 .pageHeader {
@@ -16,4 +18,56 @@
 
 .pagePlaceholderIcon {
   padding-right: 0.5rem;
+}
+
+.formContainer {
+  display: flex;
+  margin: 1.5rem 0;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.formRoot {
+  display: flex;
+  flex-grow: 9;
+}
+
+.formField {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.searchInput {
+  border-radius: 0.25rem;
+  border: solid thin var(--gray-a5);
+  width: 100%;
+  padding-left: 2.25rem;
+  margin: 0;
+  color: var(--gray-a12);
+}
+
+.addUserButton {
+  flex-shrink: 0;
+  flex-basis: 110px;
+}
+
+.addUserButtonContainer {
+  display: flex;
+
+  svg {
+    margin-right: 0.25rem;
+  }
+}
+
+.searchIcon {
+  /* TODO: What a terrible hack shaaaaaammmmmeee */
+  position: absolute;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  color: var(--gray-a12);
+}
+
+.userTableContainer {
+  padding-bottom: 3rem;
 }

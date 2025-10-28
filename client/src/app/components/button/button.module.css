@@ -29,10 +29,10 @@
 }
 
 .size-md {
-  padding: 0.6rem 1rem 0.4rem;
+  padding: 0.5rem 1rem;
   font-size: 0.875rem;
   border-radius: 0.25rem;
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .variant-primary {

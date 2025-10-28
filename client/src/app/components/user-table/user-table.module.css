@@ -1,25 +1,20 @@
 @import "@radix-ui/colors/gray.css";
 
-* {
-  font-family: "Roboto", sans-serif;
-}
-
-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  font-size: 0.875rem;
-  width: 100%;
-}
-
-.userTableContainer {
+:root {
+  * {
+    font-family: "Roboto", sans-serif;
+  }
 }
 
 .userTable {
   border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
   border: solid thin var(--gray-6);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  font-size: 0.875rem;
+  width: 100%;
 }
 
 .userTableHead {
