@@ -1,6 +1,6 @@
 "use client";
 // Framework
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
 // 3rd Party
 import { Form, AlertDialog } from "radix-ui";
 import { PlusIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
@@ -13,7 +13,7 @@ import {
   Tabs,
   Tab,
   Role,
-  friendlyDateUtil
+  friendlyDateUtil,
 } from "./components";
 import styles from "./page.module.css";
 import alert from "../app/components/user-table/alert.module.css";
@@ -34,18 +34,18 @@ const {
 const HomePageContent = () => {
   const { users, isLoading, setSearch, roles, updateRole } = useUsersContext();
 
-  const [newRoleName, setNewRoleName] = useState<string>('');
+  const [newRoleName, setNewRoleName] = useState<string>("");
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
   useMemo(() => {
-
     if (newRoleName && newRoleName.length >= 3) {
+      // eslint-disable-next-line react-hooks/set-state-in-render
       setIsFormValid(true);
     } else {
+      // eslint-disable-next-line react-hooks/set-state-in-render
       setIsFormValid(false);
     }
-  }, [newRoleName])
-
+  }, [newRoleName]);
 
   return (
     <main className={styles.pageContainer}>
@@ -107,26 +107,26 @@ const HomePageContent = () => {
                   {(roles || []).map((role: Role) => (
                     <li key={role.id} className={styles.rolesItem}>
                       <div>
-                        <p>
-                          {role.name}
-                        </p>
+                        <p>{role.name}</p>
                         <small>
-                          Last Updated: {friendlyDateUtil(role.updatedAt || '')}
+                          Last Updated: {friendlyDateUtil(role.updatedAt || "")}
                         </small>
                       </div>
                       <AlertTrigger asChild={true}>
-                        <Button
-                          variant="outline"
-                          size="md"
-                        >
+                        <Button variant="outline" size="md">
                           Edit role name
                         </Button>
                       </AlertTrigger>
                       <AlertPortal>
                         <Overlay className={alert.alertOverlay}>
                           <AlertContent className={alert.alertContent}>
-                            <Title className={alert.alertDialogTitle}>Rename Role</Title>
-                            <AlertDescription asChild={true} className={alert.alertDialogDescription}>
+                            <Title className={alert.alertDialogTitle}>
+                              Rename Role
+                            </Title>
+                            <AlertDescription
+                              asChild={true}
+                              className={alert.alertDialogDescription}
+                            >
                               <div className={styles.roleRenameForm}>
                                 <label htmlFor="role">
                                   Rename role <strong>{role.name}</strong>
@@ -138,10 +138,16 @@ const HomePageContent = () => {
                                     aria-label="role name"
                                     name="role"
                                     value={newRoleName}
-                                    onChange={(e) => setNewRoleName(e.target.value)}
+                                    onChange={(e) =>
+                                      setNewRoleName(e.target.value)
+                                    }
                                   />
                                 </label>
-                                {!isFormValid && <small>Role name must be longer than 3 characters.</small>}
+                                {!isFormValid && (
+                                  <small>
+                                    Role name must be longer than 3 characters.
+                                  </small>
+                                )}
                               </div>
                             </AlertDescription>
 
@@ -153,8 +159,12 @@ const HomePageContent = () => {
                                 <Button
                                   disabled={!isFormValid}
                                   variant="primary"
-                                  onClick={() => updateRole(role.id, { name: newRoleName })}
-                                >Save role</Button>
+                                  onClick={() =>
+                                    updateRole(role.id, { name: newRoleName })
+                                  }
+                                >
+                                  Save role
+                                </Button>
                               </AlertAction>
                             </div>
                           </AlertContent>

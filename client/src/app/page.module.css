@@ -79,7 +79,7 @@
 
 .rolesList {
   border: solid thin var(--gray-5);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 
 .rolesItem {
@@ -88,12 +88,12 @@
   align-items: center;
   border-bottom: solid thin var(--gray-5);
   margin-top: -1px;
-  padding: .75rem 1rem;
+  padding: 0.75rem 1rem;
   color: var(--gray-12);
 
   small {
     display: block;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
     color: var(--gray-10);
   }
 
@@ -102,14 +102,10 @@
   }
 }
 
-
-
-
-
 .roleRenameForm {
   width: 100%;
   justify-content: stretch;
-  font-size: .875rem;
+  font-size: 0.875rem;
 
   label {
     width: 100%;
@@ -120,13 +116,13 @@
     color: var(--red-11);
     font-size: 0.875rem;
     display: block;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 }
 
 .roleInput {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   border: solid thin var(--gray-a5);
-  border-radius: .25rem;
-  padding: .5rem 1rem;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
 }
