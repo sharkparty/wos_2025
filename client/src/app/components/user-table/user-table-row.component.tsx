@@ -9,6 +9,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { friendlyDateUtil } from "./friendly-date.util";
 import { User, useUsersContext } from "../user-context";
 import styles from "./user-table-row.module.css";
+import alert from "./alert.module.css";
 import { Button } from "../button";
 
 const { Root, Trigger, Portal, Content, Item } = DropdownMenu;
@@ -86,7 +87,7 @@ export const TableRow = ({
               <Portal>
                 <Content className={styles.dropDownContent} align="end">
                   <Item className={styles.dropDownItem}>Edit user</Item>
-                  <AlertTrigger className={styles.alertTrigger}>
+                  <AlertTrigger className={alert.alertTrigger}>
                     <Item className={styles.dropDownItem}>Delete user</Item>
                   </AlertTrigger>
                 </Content>
@@ -95,14 +96,14 @@ export const TableRow = ({
           )}
         </td>
         <AlertPortal>
-          <Overlay className={styles.alertOverlay}>
-            <AlertContent className={styles.alertContent}>
-              <Title className={styles.alertDialogTitle}>Delete User</Title>
-              <AlertDescription className={styles.alertDialogDescription}>
+          <Overlay className={alert.alertOverlay}>
+            <AlertContent className={alert.alertContent}>
+              <Title className={alert.alertDialogTitle}>Delete User</Title>
+              <AlertDescription className={alert.alertDialogDescription}>
                 Are you sure? The user <strong>{name}</strong> will be
                 permanently deleted.
               </AlertDescription>
-              <div className={styles.alertActionsContainer}>
+              <div className={alert.alertActionsContainer}>
                 <AlertAction asChild={true}>
                   <Button variant="outline">Cancel</Button>
                 </AlertAction>

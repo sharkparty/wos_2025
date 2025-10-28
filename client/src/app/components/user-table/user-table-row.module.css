@@ -3,6 +3,7 @@
 @import "@radix-ui/colors/black-alpha.css";
 
 .userTableRow {
+  min-height: 4.5rem;
   td {
     padding: 1rem;
     font-weight: 400;
@@ -49,18 +50,6 @@
   }
 }
 
-.alertTrigger {
-  padding: 0;
-  color: white;
-  border-radius: 0.5rem;
-  border: none;
-  width: 100%;
-  text-align: left;
-  &:hover {
-    background-color: var(--gray-a3);
-  }
-}
-
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -98,69 +87,4 @@
   width: 2rem;
   border-radius: 50%;
   margin-right: 0.9rem;
-}
-
-.alertOverlay {
-  background-color: var(--black-a9);
-  position: fixed;
-  inset: 0;
-  animation: overlayShow 250ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.alertContent {
-  background-color: var(--gray-1);
-  border-radius: 6px;
-  box-shadow: 0 20px 30px 0 var(--gray-a8);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90vw;
-  max-width: 500px;
-  max-height: 85vh;
-  padding: 25px;
-  animation: contentShow 250ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.alertContent:focus {
-  outline: none;
-}
-
-.alertDialogTitle {
-  margin: 0 0 1rem;
-  color: var(--mauve-12);
-  font-size: 1.25rem;
-  font-weight: 500;
-}
-
-.alertDialogDescription {
-  margin-bottom: 20px;
-  color: var(--mauve-11);
-  font-size: 0.875rem;
-  line-height: 1.5;
-}
-
-.alertActionsContainer {
-  display: flex;
-  justify-content: end;
-  gap: 0.75rem;
-}
-
-@keyframes overlayShow {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes contentShow {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -48%) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
 }
