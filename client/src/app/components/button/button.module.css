@@ -1,0 +1,95 @@
+@import "@radix-ui/colors/gray.css";
+@import "@radix-ui/colors/gray-alpha.css";
+@import "@radix-ui/colors/red-alpha.css";
+@import "@radix-ui/colors/iris.css";
+@import "@radix-ui/colors/iris-alpha.css";
+
+.buttonContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: thin solid transparent;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: all 250ms ease-in-out;
+  will-change: transform;
+  text-decoration: none;
+}
+
+.size-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+}
+
+.size-md {
+  padding: 0.6rem 1rem 0.4rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+}
+
+.variant-primary {
+  cursor: pointer;
+  border: solid thin var(--iris-a3);
+  color: #fff;
+  /* TODO: where is waldo for this color fr fr */
+  background-color: #6565ec;
+}
+
+.variant-secondary {
+  cursor: pointer;
+  background-color: white;
+  border-color: transparent;
+  color: var(--gray-a11);
+  text-align: center;
+  transition: all 250ms ease-in-out;
+
+  &:hover {
+    background-color: var(--gray-3);
+  }
+}
+
+.variant-outline {
+  cursor: pointer;
+  background-color: transparent;
+  border: thin solid var(--gray-7);
+  color: var(--gray-12);
+}
+
+.variant-destroy {
+  cursor: pointer;
+  border-color: var(--red-a5);
+  background-color: var(--red-a2);
+  color: var(--red-a11);
+}
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: var(--gray-a3);
+  border-color: transparent;
+  color: var(--gray-a8);
+}
+
+.rounded {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button:active {
+    transform: translateY(0.5px) scale(0.998);
+  }
+}

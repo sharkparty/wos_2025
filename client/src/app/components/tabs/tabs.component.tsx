@@ -1,9 +1,9 @@
 // Framework
 import React, { JSX } from "react";
 // 3rd Party
-import { Tabs as RadixTabs } from 'radix-ui';
+import { Tabs as RadixTabs } from "radix-ui";
 // Local
-import styles from './tabs.module.css';
+import styles from "./tabs.module.css";
 
 // Simplify JSX
 const { Root, TabsTrigger, TabsList, TabsContent } = RadixTabs;
@@ -26,21 +26,27 @@ export const Tabs = ({ children }: TabsProps): JSX.Element => {
     <div className={styles.tabsContainer}>
       <Root defaultValue={tabMap[0].key}>
         <TabsList className={styles.tabsListContainer}>
-          {tabMap.length > 0 && tabMap.map((tab) => (
-            <TabsTrigger className={styles.tabsListTrigger} value={tab.key} key={tab.key}>
-              <span>{tab.label}</span>
-            </TabsTrigger>
-          ))}
+          {tabMap.length > 0 &&
+            tabMap.map((tab) => (
+              <TabsTrigger
+                className={styles.tabsListTrigger}
+                value={tab.key}
+                key={tab.key}
+              >
+                <span>{tab.label}</span>
+              </TabsTrigger>
+            ))}
         </TabsList>
-        {tabMap.length > 0 && tabMap.map((tab) => (
-          <TabsContent value={tab.key} key={tab.key}>
-            {tab.children}
-          </TabsContent>
-        ))}
+        {tabMap.length > 0 &&
+          tabMap.map((tab) => (
+            <TabsContent value={tab.key} key={tab.key}>
+              {tab.children}
+            </TabsContent>
+          ))}
       </Root>
     </div>
   );
-}
+};
 
 // NOTE: The parent component is responsible for rendering.
 interface TabProps {
@@ -52,4 +58,4 @@ export const Tab = (props: TabProps) => {
   return null;
 };
 // Set the displayName for runtime type checking
-Tab.displayName = 'Tab';
+Tab.displayName = "Tab";

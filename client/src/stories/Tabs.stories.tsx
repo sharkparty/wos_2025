@@ -6,13 +6,11 @@ const meta = {
   title: "Components/Tabs",
   component: Tabs,
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
   },
   tags: ["autodocs"],
-  argTypes: {
-  },
-  args: {
-  },
+  argTypes: {},
+  args: {},
 } satisfies Meta<typeof Tabs>;
 
 export default meta;
@@ -30,7 +28,7 @@ export const Primary: Story = {
       <Tab key="role" label="Role">
         <h1>Role</h1>
         <p>Roles list</p>
-      </Tab>
-    ]
+      </Tab>,
+    ],
   },
 };
