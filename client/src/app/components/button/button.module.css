@@ -1,5 +1,6 @@
 @import "@radix-ui/colors/gray.css";
 @import "@radix-ui/colors/gray-alpha.css";
+@import "@radix-ui/colors/red.css";
 @import "@radix-ui/colors/red-alpha.css";
 @import "@radix-ui/colors/iris.css";
 @import "@radix-ui/colors/iris-alpha.css";
@@ -61,13 +62,25 @@
   background-color: transparent;
   border: thin solid var(--gray-7);
   color: var(--gray-12);
+  transition: all 250ms ease-in-out;
+
+  &:hover {
+    background-color: var(--gray-a3);
+  }
 }
 
 .variant-destroy {
   cursor: pointer;
   border-color: var(--red-a5);
-  background-color: var(--red-a2);
+  background-color: var(--red-a3);
   color: var(--red-a11);
+  transition: all 250ms ease-in-out;
+
+  &:hover {
+    border-color: var(--red-a8);
+    background-color: var(--red-11);
+    color: white;
+  }
 }
 
 .disabled {

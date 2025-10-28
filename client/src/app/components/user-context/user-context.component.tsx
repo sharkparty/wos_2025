@@ -6,7 +6,6 @@ import React, {
   useCallback,
 } from "react";
 import useSWR, { mutate as globalMutate } from "swr";
-import useSWRInfinite from "swr/infinite";
 import { fetcher } from "./fetcher.util";
 
 export type UUID = string;
@@ -63,7 +62,9 @@ interface UsersContextValue {
   refresh: () => Promise<void>;
 }
 
-const UsersContext = createContext<UsersContextValue | undefined>(undefined);
+export const UsersContext = createContext<UsersContextValue | undefined>(
+  undefined,
+);
 const ROLES_KEY = `/roles/`;
 
 function reconcileRoles(users: User[], roles?: Role[]): User[] {

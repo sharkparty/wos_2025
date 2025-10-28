@@ -1,19 +1,30 @@
 // Framework
 import { JSX } from "react";
 // 3rd Party
-import { Avatar, DropdownMenu } from "radix-ui";
+import { AlertDialog, Avatar, DropdownMenu } from "radix-ui";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 // Local
 import { friendlyDateUtil } from "./friendly-date.util";
-import { User } from "../user-context";
+import { User, useUsersContext } from "../user-context";
 import styles from "./user-table-row.module.css";
 import { Button } from "../button";
 
 const { Root, Trigger, Portal, Content, Item } = DropdownMenu;
 
 const { Root: AvatarRoot, Image } = Avatar;
+
+const {
+  Root: AlertRoot,
+  Trigger: AlertTrigger,
+  Portal: AlertPortal,
+  Overlay,
+  Content: AlertContent,
+  Title,
+  Description: AlertDescription,
+  Action: AlertAction,
+} = AlertDialog;
 
 type TableRowProps = {
   loading?: boolean;
@@ -29,6 +40,7 @@ export const TableRow = ({
   loading,
 }: TableRowProps): JSX.Element => {
   const name = `${first || ""} ${last || ""}`;
+  const { deleteUser } = useUsersContext();
 
   return (
     <tr className={styles.userTableRow}>
@@ -62,23 +74,46 @@ export const TableRow = ({
           friendlyDateUtil(createdAt)
         )}
       </td>
-      <td>
-        {!loading && id && (
-          <Root>
-            <Trigger asChild={true}>
-              <Button variant="secondary" rounded={true}>
-                <DotsHorizontalIcon />
-              </Button>
-            </Trigger>
-            <Portal>
-              <Content className={styles.dropDownContent} align="end">
-                <Item className={styles.dropDownItem}>Edit user</Item>
-                <Item className={styles.dropDownItem}>Delete user</Item>
-              </Content>
-            </Portal>
-          </Root>
-        )}
-      </td>
+      <AlertRoot>
+        <td>
+          {!loading && id && (
+            <Root>
+              <Trigger asChild={true}>
+                <Button variant="secondary" rounded={true}>
+                  <DotsHorizontalIcon />
+                </Button>
+              </Trigger>
+              <Portal>
+                <Content className={styles.dropDownContent} align="end">
+                  <Item className={styles.dropDownItem}>Edit user</Item>
+                  <AlertTrigger className={styles.alertTrigger}>
+                    <Item className={styles.dropDownItem}>Delete user</Item>
+                  </AlertTrigger>
+                </Content>
+              </Portal>
+            </Root>
+          )}
+        </td>
+        <AlertPortal>
+          <Overlay className={styles.alertOverlay}>
+            <AlertContent className={styles.alertContent}>
+              <Title className={styles.alertDialogTitle}>Delete User</Title>
+              <AlertDescription className={styles.alertDialogDescription}>
+                Are you sure? The user <strong>{name}</strong> will be
+                permanently deleted.
+              </AlertDescription>
+              <div className={styles.alertActionsContainer}>
+                <AlertAction asChild={true}>
+                  <Button variant="outline">Cancel</Button>
+                </AlertAction>
+                <Button onClick={() => deleteUser(id)} variant="destroy">
+                  Delete User
+                </Button>
+              </div>
+            </AlertContent>
+          </Overlay>
+        </AlertPortal>
+      </AlertRoot>
     </tr>
   );
 };
