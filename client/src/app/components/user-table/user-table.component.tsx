@@ -26,8 +26,6 @@ export const UserTable = ({
     rows = usersData;
   }
 
-  console.log(111, rows);
-
   return (
     <div className={styles.userTableContainer}>
       <table
