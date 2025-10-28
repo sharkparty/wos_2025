@@ -4,7 +4,7 @@ import { JSX } from "react";
 // Local
 import { TableRow } from "./user-table-row.component";
 import { Button } from "../button";
-import { User } from "../user-context";
+import { User, useUsersContext } from "../user-context";
 import styles from "./user-table.module.css";
 
 export type UserTableProps = {
@@ -16,6 +16,8 @@ export const UserTable = ({
   loading = true,
   usersData,
 }: UserTableProps): JSX.Element => {
+  const { page, setPage, totalPages } = useUsersContext();
+
   let rows: User[] = [];
 
   if (usersData) {
@@ -60,8 +62,9 @@ export const UserTable = ({
                   type="button"
                   size="sm"
                   variant="outline"
-                  disabled={true}
+                  disabled={page <= 1}
                   aria-label="Previous Page"
+                  onClick={() => setPage(page - 1)}
                 >
                   Previous
                 </Button>
@@ -69,7 +72,9 @@ export const UserTable = ({
                   type="button"
                   size="sm"
                   variant="outline"
+                  disabled={page + 1 > totalPages}
                   aria-label="Next Page"
+                  onClick={() => setPage(page + 1)}
                 >
                   Next
                 </Button>
