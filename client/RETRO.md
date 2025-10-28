@@ -63,16 +63,12 @@ I had a lot of fun tinkering with this one — thank you for the thoughtful prom
 
 * **Integration Philosophy:**
   Each framework was selected for its compatibility with modular, incremental delivery and ease of integration into a CI/CD pipeline.
-
 * **Code Hygiene:**
   ESLint and Prettier operate as pre-commit hooks to enforce consistency and quality from the first line of code.
-
 * **Testing Discipline:**
   Jest coverage thresholds are defined and enforced. Every UI component includes at least snapshot or behavioral test coverage to protect against visual or functional regressions.
-
 * **Documentation Alignment:**
   Storybook doubles as both a development and design reference point. It should remain continuously synchronized with production components to maintain a single source of truth for visual and interaction patterns.
-
 * **Version Management:**
   Frameworks are maintained at current minor or patch versions to ensure security, compatibility, and performance without introducing unnecessary churn or breaking changes.
 
@@ -157,9 +153,9 @@ I had a lot of fun tinkering with this one — thank you for the thoughtful prom
 * **Schema Validation:**
   The API lacks schema validation. I added UI-side validation to protect integrity. Ideally, the API would enforce schema consistency, with alignment via database tooling and observability (o11y) hooks to detect violations and prevent brittle coupling between frontend and backend.
 * **State Management:**
-  The provided user state pattern is functional for the assignment’s scale but not sufficient for enterprise-grade complexity. In a full implementation, I’d introduce more scalable state tooling to support concurrency, optimistic updates, and caching strategies.
+  The provided user state pattern is functional for the assignment’s scale but not sufficient for enterprise-grade complexity. In a full implementation, I’d introduce more scalable state tooling to support more robust error handling (e.g. user feedback regarding latency, server outages, etc), o11y, concurrency, optimistic updates, and caching strategies.
 * **Pending States & DOM Stability:**
-  Some pending or loading states could be refined to minimize DOM “jumping” during updates.
+  Some pending or loading states could be refined to minimize DOM “jumping” during updates and better handling of error states.
 * **Autofocus Behavior:**
   The autofocus on the search filter steals focus from the primary input field, which slightly harms UX.
 * **Did you make it this far?!?!:** Holy cow. I'm so honored you've given me so much time to share my thoughts with you. If you'd like more technical notes they're added as `TODOs` in the code. Mention you made it here and I will genuinely be staggered. 

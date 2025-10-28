@@ -2,6 +2,7 @@
 // Framework
 import { useState, useMemo } from "react";
 // 3rd Party
+import Skeleton from 'react-loading-skeleton';
 import { Form, AlertDialog } from "radix-ui";
 import { PlusIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 // Local
@@ -84,7 +85,11 @@ const HomePageContent = () => {
               </Button>
             </div>
             <div className={styles.userTableContainer}>
-              <UserTable usersData={users} loading={isLoading} />
+              {!isLoading ? (
+                <UserTable usersData={users} loading={isLoading} />
+              ) : (
+                <Skeleton height="3rem" />
+              )}
             </div>
           </Tab>
           <Tab key="roles" label="Roles">

@@ -7,12 +7,23 @@ This is a [Next.js](https://nextjs.org/) project.
 First, install the dependencies:
 
 ```bash
+# API
+cd ../server
+npm ci
+
+cd ../client
 npm ci
 ```
 
-Then, run the development server:
+Then, run the development servers:
 
 ```bash
+# API
+cd ../server
+npm run api
+
+# Client
+cd ../client
 npm run dev
 ```
 
