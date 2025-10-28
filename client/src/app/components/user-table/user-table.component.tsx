@@ -2,9 +2,9 @@
 import { JSX } from "react";
 // 3rd Party
 // Local
-import { TableRow } from './user-table-row.component';
-import { Button } from '../button';
-import { UserSchemaCollection } from './user.schema';
+import { TableRow } from "./user-table-row.component";
+import { Button } from "../button";
+import { UserSchema, UserSchemaCollection } from "./user.schema";
 import styles from "./user-table.module.css";
 
 export type UserTableProps = {
@@ -12,7 +12,22 @@ export type UserTableProps = {
   loading?: boolean;
 };
 
-export const UserTable = (props: UserTableProps): JSX.Element => {
+export const UserTable = ({
+  loading = true,
+  usersData,
+}: UserTableProps): JSX.Element => {
+  let rows: UserSchemaCollection = [];
+
+  if (loading) {
+    for (let i = 0; i < 9; i++) {
+      rows.push({ id: `${i}` } as UserSchema);
+    }
+  } else {
+    rows = usersData;
+  }
+
+  console.log(111, rows);
+
   return (
     <div className={styles.userTableContainer}>
       <table
@@ -31,11 +46,10 @@ export const UserTable = (props: UserTableProps): JSX.Element => {
             <th scope="col"></th>
           </tr>
         </thead>
-
         <tbody className={styles.userTableBody}>
-          <TableRow />
-          <TableRow />
-          <TableRow />
+          {rows.map((props: UserSchema) => (
+            <TableRow loading={loading} key={props.id} {...props} />
+          ))}
         </tbody>
         <tfoot className={styles.userTableFooter}>
           <tr>

@@ -1,8 +1,86 @@
 @import "@radix-ui/colors/gray.css";
+@import "@radix-ui/colors/gray-alpha.css";
 
 .userTableRow {
-    td {
-        padding: 1rem;
-        font-weight: 400;
-    }
+  td {
+    padding: 1rem;
+    font-weight: 400;
+  }
+}
+
+:root {
+  :focus-visible {
+    outline: solid thin var(--gray-a5);
+  }
+}
+
+.dropDownContent {
+  padding: 0.5rem;
+  background-color: white;
+  box-shadow: 0 20px 30px 0 var(--gray-a8);
+  border-radius: 1rem;
+  min-width: 140px;
+
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dropDownContent[data-side="bottom"] {
+  animation-name: slideUp;
+}
+.dropDownContent[data-side="bottom"] {
+  animation-name: slideDown;
+}
+
+.dropDownItem {
+  padding: 0.75rem 1rem 0.5rem;
+  font-weight: 400;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 250ms ease-in-out;
+  color: var(--gray-12);
+  border-radius: 0.5rem;
+
+  &:hover {
+    background-color: var(--gray-a4);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skeleton {
+  height: 1.5rem;
+  width: 100%;
+}
+
+.userRowContainer {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  margin-right: 0.9rem;
 }

@@ -1,3 +1,5 @@
 .next
 #*.config.*
 *.d.ts
+
+globals.css

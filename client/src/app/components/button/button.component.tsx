@@ -1,6 +1,9 @@
+// Framework
 import React from "react";
+// 3rd Party
 import { Slot } from "@radix-ui/react-slot";
-import styles from "./Button.module.css";
+// Local
+import styles from "./button.module.css";
 
 type Variant = "primary" | "outline" | "destroy" | "secondary";
 type Size = "sm" | "md";
@@ -18,67 +21,72 @@ interface BaseProps {
 }
 
 type NativeButtonProps = BaseProps &
-  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseProps | "type"> & {
-  asChild?: false | undefined;
-  type?: "button" | "submit" | "reset";
-};
+  Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    keyof BaseProps | "type"
+  > & {
+    asChild?: false | undefined;
+    type?: "button" | "submit" | "reset";
+  };
 
 type AsChildProps = BaseProps &
   Omit<React.HTMLAttributes<HTMLElement>, keyof BaseProps> & {
-  asChild: true;
-};
+    asChild: true;
+  };
 
 export type ButtonProps = NativeButtonProps | AsChildProps;
 
 const cx = (...args: Array<string | undefined | false>) =>
   args.filter(Boolean).join(" ");
 
-export const Button = React.forwardRef<HTMLElement, ButtonProps>((props, ref) => {
-  const {
-    children,
-    variant = "primary",
-    size = "md",
-    className,
-    asChild = false,
-    disabled = false,
-    rounded = false,
-    onClick,
-    ...rest
-  } = props as ButtonProps;
+export const Button = React.forwardRef<HTMLElement, ButtonProps>(
+  (props, ref) => {
+    const {
+      children,
+      variant = "primary",
+      size = "md",
+      className,
+      asChild = false,
+      disabled = false,
+      rounded = false,
+      onClick,
+      ...rest
+    } = props as ButtonProps;
 
-  const classes = cx(
-    styles.button,
-    styles[`variant-${variant}`],
-    styles[`size-${size}`],
-    disabled ? styles.disabled : undefined,
-    rounded ? styles.rounded : undefined,
-    className
-  );
+    const classes = cx(
+      styles.button,
+      styles[`variant-${variant}`],
+      styles[`size-${size}`],
+      disabled ? styles.disabled : undefined,
+      rounded ? styles.rounded : undefined,
+      className,
+    );
 
-  if (asChild) {
+    if (asChild) {
+      return (
+        <Slot
+          {...(rest as React.HTMLAttributes<HTMLElement>)}
+          ref={ref as React.Ref<HTMLButtonElement>}
+          className={classes}
+          aria-disabled={disabled ? "true" : undefined}
+        >
+          {children}
+        </Slot>
+      );
+    }
+
     return (
-      <Slot
-        {...(rest as React.HTMLAttributes<HTMLElement>)}
+      <button
         ref={ref as React.Ref<HTMLButtonElement>}
         className={classes}
-        aria-disabled={disabled ? "true" : undefined}
+        disabled={disabled}
+        onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
+        {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
       >
         {children}
-      </Slot>
+      </button>
     );
-  }
-
-  return (
-    <button
-      ref={ref as React.Ref<HTMLButtonElement>}
-      className={classes}
-      disabled={disabled}
-      onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
-      {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
-    >
-      {children}
-    </button>
-  );
-});
+  },
+);
 
 Button.displayName = "Button";

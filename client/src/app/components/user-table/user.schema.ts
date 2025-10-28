@@ -1,6 +1,6 @@
 import Ajv from "ajv";
-import { JTDDataType } from 'ajv/dist/jtd';
-import formats from 'ajv-formats';
+import { JTDDataType } from "ajv/dist/jtd";
+import formats from "ajv-formats";
 
 const ajv = new Ajv();
 
@@ -20,8 +20,7 @@ export const userSchema = {
       format: "date-time",
     },
     updatedAt: {
-      description:
-        "The timestamp when the record was last updated (ISO 8601).",
+      description: "The timestamp when the record was last updated (ISO 8601).",
       type: "string",
       format: "date-time",
     },
@@ -40,6 +39,11 @@ export const userSchema = {
       type: "string",
       format: "uuid",
     },
+    role: {
+      description: "The friendly name for the user's role.",
+      type: "string",
+      minLength: 1,
+    },
     photo: {
       description: "A URL pointing to the user's profile photo.",
       type: "string",
@@ -48,14 +52,13 @@ export const userSchema = {
   },
   required: [
     "id",
-    "createdAt",
-    "updatedAt",
-    "first",
-    "last",
-    "roleId",
-    "photo",
+    // "createdAt",
+    // "updatedAt",
+    // "first",
+    // "last",
+    // "roleId",
+    // "photo",
   ],
-  additionalProperties: false,
 } as const;
 
 export type UserSchema = JTDDataType<typeof userSchema>;
