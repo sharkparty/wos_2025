@@ -4,11 +4,11 @@ import { JSX } from "react";
 // Local
 import { TableRow } from "./user-table-row.component";
 import { Button } from "../button";
-import { UserSchema, UserSchemaCollection } from "./user.schema";
+import { User } from "../user-context";
 import styles from "./user-table.module.css";
 
 export type UserTableProps = {
-  usersData?: UserSchemaCollection;
+  usersData?: User[];
   loading?: boolean;
 };
 
@@ -16,14 +16,14 @@ export const UserTable = ({
   loading = true,
   usersData,
 }: UserTableProps): JSX.Element => {
-  let rows: UserSchemaCollection = [];
+  let rows: User[] = [];
 
-  if (loading) {
-    for (let i = 0; i < 9; i++) {
-      rows.push({ id: `${i}` } as UserSchema);
-    }
-  } else {
+  if (usersData) {
     rows = usersData;
+  } else {
+    for (let i = 0; i < 9; i++) {
+      rows.push({ id: `${i}` } as User);
+    }
   }
 
   return (
@@ -45,7 +45,7 @@ export const UserTable = ({
           </tr>
         </thead>
         <tbody className={styles.userTableBody}>
-          {rows.map((props: UserSchema) => (
+          {rows.map((props: User) => (
             <TableRow loading={loading} key={props.id} {...props} />
           ))}
         </tbody>

@@ -18,6 +18,8 @@ interface BaseProps {
   rounded?: boolean;
   "aria-label"?: string;
   title?: string;
+  // TODO: prefix, suffix (for iconography)
+  // TODO: append/group
 }
 
 type NativeButtonProps = BaseProps &

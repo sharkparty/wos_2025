@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 // Local
 import { friendlyDateUtil } from "./friendly-date.util";
+import { User } from "../user-context";
 import styles from "./user-table-row.module.css";
 import { Button } from "../button";
 
@@ -15,14 +16,8 @@ const { Root, Trigger, Portal, Content, Item } = DropdownMenu;
 const { Root: AvatarRoot, Image } = Avatar;
 
 type TableRowProps = {
-  id: string; // TODO: AJV UUID Verification
-  first: string;
-  last: string;
-  photo: string;
-  role: string;
-  createdAt: string;
   loading?: boolean;
-};
+} & User;
 
 export const TableRow = ({
   id,
@@ -34,10 +29,11 @@ export const TableRow = ({
   loading,
 }: TableRowProps): JSX.Element => {
   const name = `${first || ""} ${last || ""}`;
+
   return (
     <tr className={styles.userTableRow}>
       <td>
-        {!loading || first ? (
+        {!loading && first ? (
           <div className={styles.userRowContainer}>
             <AvatarRoot>
               <Image
@@ -56,7 +52,7 @@ export const TableRow = ({
         {loading || !role ? (
           <Skeleton className={styles.skeleton} />
         ) : (
-          `${role}`
+          `${role.name}`
         )}
       </td>
       <td>
