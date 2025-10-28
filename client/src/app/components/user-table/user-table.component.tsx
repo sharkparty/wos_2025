@@ -64,7 +64,7 @@ export const UserTable = ({
                   variant="outline"
                   disabled={page <= 1}
                   aria-label="Previous Page"
-                  onClick={() => setPage(page-1)}
+                  onClick={() => setPage(page - 1)}
                 >
                   Previous
                 </Button>
@@ -74,7 +74,7 @@ export const UserTable = ({
                   variant="outline"
                   disabled={page + 1 > totalPages}
                   aria-label="Next Page"
-                  onClick={() => setPage(page+1)}
+                  onClick={() => setPage(page + 1)}
                 >
                   Next
                 </Button>
